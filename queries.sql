@@ -1,12 +1,34 @@
-SELECT * FROM Tournaments;
+SELECT 
+    t.name AS tournament,
+    t.year,
+    t.location,
+    tm.name AS winner
+FROM Tournaments t 
+LEFT JOIN Teams tm ON t.winner = tm.team_id;
 
-SELECT * FROM Tournament_Teams WHERE tournament_id = 2;
+SELECT 
+    t.name AS team_name,
+    t.country,
+    t.representative_name,
+    t.contact_phone
+FROM Tournament_Teams tt
+JOIN Teams t ON tt.team_id = t.team_id
+WHERE tt.tournament_id = 2
 
-SELECT * FROM Players WHERE team_id = 1;
+SELECT 
+    p.name,
+    p.surname,
+    p.dob,
+    p.country,
+    p.role,
+    p.position,
+    p.is_captain
+FROM Players p
+WHERE p.team_id = 1
 
-SELECT * FROM Matches WHERE team_id = 2;
+SELECT * FROM Matches WHERE tournament_id = 2;
 
-SELECT * FROM Matches WHERE team_home = 45;
+SELECT * FROM Matches WHERE team_home = 45 OR team_away = 45;
 
 SELECT 
     me.event_id,
@@ -101,7 +123,7 @@ SELECT
 	tt.final_position
 FROM Tournament_Teams tt 
 JOIN Tournaments t ON tt.tournament_id = t.tournament_id
-WHERE t.team_id = 7;
+WHERE tt.team_id = 7;
 
 SELECT 
 	t.name, 
