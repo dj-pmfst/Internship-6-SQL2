@@ -60,8 +60,8 @@ CREATE TABLE Matches (
 	team_away INT NOT NULL REFERENCES Teams(team_id),
 	phase Phase NOT NULL,
 	referee_id INT NOT NULL REFERENCES Referees(referee_id),
-	home_score INT NOT NULL DEFAULT 0,
-	away_score INT NOT NULL DEFAULT 0,
+	home_score INT DEFAULT 0,
+	away_score INT DEFAULT 0,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	UNIQUE(tournament_id, team_home, team_away, phase)
