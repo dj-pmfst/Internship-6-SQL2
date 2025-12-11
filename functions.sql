@@ -5,6 +5,7 @@ BEGIN
         IF NEW.home_score IS NOT NULL OR NEW.away_score IS NOT NULL THEN 
             NEW.home_score = NULL;
             NEW.away_score = NULL; 
+            NEW.phase = NULL;
         END IF;
     END IF;
 
