@@ -5,7 +5,7 @@ BEGIN
         IF NEW.home_score IS NOT NULL OR NEW.away_score IS NOT NULL THEN 
             NEW.home_score = NULL;
             NEW.away_score = NULL; 
-            NEW.phase = NULL;
+            RAISE NOTICE 'Utakmica još nije održana. Rezultati i postavljeni na NULL.';
         END IF;
     END IF;
 
@@ -24,6 +24,7 @@ RETURNS TRIGGER AS $$
 BEGIN 
     IF NEW.role = 'goalkeeper' THEN 
         NEW.position = NULL; 
+        RAISE NOTICE 'Uloga golman. Pozicija stavljena na NULL.';
     END IF; 
 
     RETURN NEW;
@@ -66,8 +67,10 @@ BEGIN
     IF NEW.year > EXTRACT(YEAR FROM CURRENT_DATE) THEN 
         NEW.status = 'scheduled';
         NEW.winner = NULL;
+        RAISE NOTICE 'Turnir zakazan za budući datum. Status promijenjen u scheduled i uklonjen pobjednik.';
     ELSIF NEW.year < EXTRACT(YEAR FROM CURRENT_DATE) THEN 
         NEW.status = 'finished';
+        RAISE NOTICE 'Datum turnira je prošao. Status promijenjen u finished.';
     END IF;
 
     RETURN NEW;
@@ -193,6 +196,7 @@ BEGIN
     
     IF tournament_status = 'scheduled' THEN 
         NEW.points = 0; 
+        RAISE NOTICE 'Turnir zakazan za budući datum. Bodovi postavljeni na 0.';
     END IF; 
 
     RETURN NEW; 

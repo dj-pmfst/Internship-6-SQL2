@@ -82,8 +82,6 @@ WHERE t.status = 'finished'
       WHERE tt.tournament_id = t.tournament_id
   );
 
-
-
 DELETE FROM Players p1
 WHERE EXISTS (
     SELECT 1 
