@@ -1,3 +1,4 @@
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     t.name AS tournament,
     t.year,
@@ -6,6 +7,7 @@ SELECT
 FROM Tournaments t 
 LEFT JOIN Teams tm ON t.winner = tm.team_id;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     t.name AS team_name,
     t.country,
@@ -15,6 +17,7 @@ FROM Tournament_Teams tt
 JOIN Teams t ON tt.team_id = t.team_id
 WHERE tt.tournament_id = 2
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     p.name,
     p.surname,
@@ -26,10 +29,13 @@ SELECT
 FROM Players p
 WHERE p.team_id = 1
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT * FROM Matches WHERE tournament_id = 2;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT * FROM Matches WHERE team_home = 45 OR team_away = 45;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     me.event_id,
     me.type,
@@ -41,6 +47,7 @@ FROM Match_Events me
 JOIN Players p ON me.player_id = p.player_id
 WHERE match_id = 432;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     p.name,
     p.surname,
@@ -54,6 +61,7 @@ JOIN Matches m ON me.match_id = m.match_id
 WHERE m.tournament_id = 39 
   AND (me.type = 'red card' OR me.type = 'yellow card');
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     p.name,
     p.surname,
@@ -69,6 +77,7 @@ WHERE m.tournament_id = 49
 GROUP BY p.player_id, p.name, p.surname, t.name
 ORDER BY goals DESC;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	t.name AS team,
 	tt.points, 
@@ -78,6 +87,7 @@ FROM Tournament_Teams tt
 JOIN Teams t ON tt.team_id = t.team_id
 WHERE tt.tournament_id = 49;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	t.name,
 	t.year,
@@ -89,12 +99,14 @@ JOIN Teams tm ON tt.team_id = tm.team_id
 JOIN Matches m ON t.tournament_id = m.tournament_id
 WHERE tt.phase_reached = 'finals';
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     phase,
     COUNT(*) AS match_count
 FROM Matches
 GROUP BY phase;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	th.name AS team_home,
 	ta.name AS team_away,
@@ -104,8 +116,9 @@ SELECT
 FROM Matches m
 JOIN Teams th ON m.team_home = th.team_id
 JOIN Teams ta ON m.team_away = ta.team_id
-WHERE m.date = '11-08-2022'; 
+WHERE m.date = '12-02-2008'; 
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	p.name,
 	p.surname,
@@ -117,6 +130,7 @@ WHERE m.tournament_id = 49
 GROUP BY p.player_id, p.name, p.surname
 ORDER BY goals DESC; 
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	t.name,
 	t.year,
@@ -125,6 +139,7 @@ FROM Tournament_Teams tt
 JOIN Tournaments t ON tt.tournament_id = t.tournament_id
 WHERE tt.team_id = 7;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	t.name, 
 	t.year,
@@ -133,6 +148,7 @@ FROM Tournaments t
 JOIN Teams tm ON t.winner = tm.team_id
 WHERE t.status = 'finished';
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
     t.name,
     t.year,
@@ -144,6 +160,7 @@ LEFT JOIN Players p ON tt.team_id = p.team_id
 GROUP BY t.tournament_id, t.name, t.year
 ORDER BY t.year ASC;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	t.name AS team_name,
     p.name,
@@ -158,6 +175,7 @@ WHERE me.type = 'goal'
 GROUP BY p.player_id, p.name, p.surname, t.name
 ORDER BY goals DESC;
 
+EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
 	r.name,
 	r.surname,

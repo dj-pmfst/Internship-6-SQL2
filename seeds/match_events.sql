@@ -998,3 +998,8 @@ insert into match_events (event_id, type, player_id, match_id, minute, created_a
 insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (998, 'red card', 942, 805, 92, '1-7-2026', '15-2-2013');
 insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (999, 'goal', 83, 652, 96, '4-2-2028', '24-6-2030');
 insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (1000, 'yellow card', 334, 226, 3, '6-11-2010', '14-1-2013');
+insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (1002, 'goal',3001, 2001, 90, '4-2-2028', '24-6-2030');
+insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (1003, 'goal',3002, 2002, 85, '4-2-2028', '24-6-2030');
+insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (1004, 'goal',3003, 2003, 6, '4-2-2028', '24-6-2030');
+insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (1005, 'goal',3004, 2004, 9, '4-2-2028', '24-6-2030');
+insert into match_events (event_id, type, player_id, match_id, minute, created_at, updated_at) values (1006, 'goal',3005, 2005, 101, '4-2-2028', '24-6-2030');
