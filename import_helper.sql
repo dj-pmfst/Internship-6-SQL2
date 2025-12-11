@@ -6,6 +6,15 @@ ALTER TABLE Matches DISABLE TRIGGER ALL;
 ALTER TABLE Match_Events DISABLE TRIGGER ALL;
 ALTER TABLE Tournament_Teams DISABLE TRIGGER ALL;
 
+--import seed fileova
+  --redoslijed:
+    -- teams.sql
+    -- referees.sql
+    -- players.sql 
+    -- tournaments.sql
+    -- matches.sql
+    -- match_events.sql
+    -- tournament_teams.sql
 
 DELETE FROM Referees 
 WHERE dob >= CURRENT_DATE - INTERVAL '18 years';
@@ -74,27 +83,6 @@ WHERE t.status = 'finished'
   );
 
 
-DELETE FROM Matches m
-WHERE NOT EXISTS (
-    SELECT 1 
-    FROM Tournaments t
-    WHERE t.tournament_id = m.tournament_id
-      AND EXTRACT(YEAR FROM m.date) = t.year
-);
-
-DELETE FROM Matches m
-WHERE NOT EXISTS (
-    SELECT 1 
-    FROM Tournament_Teams tt
-    WHERE tt.tournament_id = m.tournament_id
-      AND tt.team_id = m.team_home
-)
-OR NOT EXISTS (
-    SELECT 1 
-    FROM Tournament_Teams tt
-    WHERE tt.tournament_id = m.tournament_id
-      AND tt.team_id = m.team_away
-);
 
 DELETE FROM Players p1
 WHERE EXISTS (
@@ -104,34 +92,6 @@ WHERE EXISTS (
       AND p1.name = p2.name
       AND p1.surname = p2.surname
       AND p1.team_id != p2.team_id
-);
-
-DELETE FROM Matches m1
-WHERE EXISTS (
-    SELECT 1 
-    FROM Matches m2
-    WHERE m1.match_id > m2.match_id
-      AND m1.date::date = m2.date::date
-      AND (
-          m1.team_home = m2.team_home 
-          OR m1.team_home = m2.team_away
-          OR m1.team_away = m2.team_home
-          OR m1.team_away = m2.team_away
-      )
-);
-
-DELETE FROM Match_Events me
-WHERE NOT EXISTS (
-    SELECT 1 FROM Matches m WHERE m.match_id = me.match_id
-);
-
-DELETE FROM Match_Events me
-WHERE NOT EXISTS (
-    SELECT 1 
-    FROM Matches m
-    JOIN Players p ON me.player_id = p.player_id
-    WHERE m.match_id = me.match_id
-      AND (p.team_id = m.team_home OR p.team_id = m.team_away)
 );
 
 
