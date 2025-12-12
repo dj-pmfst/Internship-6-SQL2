@@ -59,7 +59,7 @@ FROM Match_Events me
 JOIN Players p ON me.player_id = p.player_id
 JOIN Matches m ON me.match_id = m.match_id
 WHERE m.tournament_id = 18
-  AND (me.type = 'red card' OR me.type = 'yellow card'); 
+  AND (me.type = 'red card' OR me.type = 'yellow card');
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
@@ -74,8 +74,7 @@ JOIN Teams t ON p.team_id = t.team_id
 WHERE m.tournament_id = 49 
   AND me.type = 'goal' 
   AND p.role = 'forward'
-GROUP BY p.player_id, p.name, p.surname, t.name
-ORDER BY goals DESC; 
+GROUP BY p.player_id, p.name, p.surname, t.name;
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
