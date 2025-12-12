@@ -12,7 +12,8 @@ CREATE TABLE Teams (
 	contact_phone VARCHAR(20),
     representative_name VARCHAR(100),
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CHECK (created_at <= updated_at)
 );
 
 CREATE TABLE Referees (
@@ -23,7 +24,8 @@ CREATE TABLE Referees (
 	country VARCHAR(100),
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	CHECK (dob < CURRENT_DATE - INTERVAL '18 years')
+	CHECK (dob < CURRENT_DATE - INTERVAL '18 years'),
+	CHECK (created_at <= updated_at)
 );
 
 CREATE TABLE Players (
@@ -38,7 +40,8 @@ CREATE TABLE Players (
 	is_captain BOOLEAN NOT NULL DEFAULT false,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	CHECK (dob < CURRENT_DATE - INTERVAL '18 years')
+	CHECK (dob < CURRENT_DATE - INTERVAL '18 years'),
+	CHECK (created_at <= updated_at)
 );
 
 CREATE TABLE Tournaments (
@@ -49,7 +52,8 @@ CREATE TABLE Tournaments (
 	status Status NOT NULL DEFAULT 'scheduled', 
 	winner INT REFERENCES Teams(team_id),
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CHECK (created_at <= updated_at)
 );
 
 CREATE TABLE Matches (
@@ -64,7 +68,8 @@ CREATE TABLE Matches (
 	away_score INT DEFAULT 0,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	UNIQUE(tournament_id, team_home, team_away, phase)
+	UNIQUE(tournament_id, team_home, team_away, phase),
+	CHECK (created_at <= updated_at)
 );
 
 CREATE TABLE Match_Events (
@@ -75,7 +80,8 @@ CREATE TABLE Match_Events (
 	minute INT NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	CHECK (minute >= 0 AND minute <= 120)
+	CHECK (minute >= 0 AND minute <= 120),
+	CHECK (created_at <= updated_at)
 );
 
 CREATE TABLE Tournament_Teams (
@@ -87,5 +93,6 @@ CREATE TABLE Tournament_Teams (
 	phase_reached Phase,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	UNIQUE(tournament_id, team_id)
+	UNIQUE(tournament_id, team_id),
+	CHECK (created_at <= updated_at)
 );

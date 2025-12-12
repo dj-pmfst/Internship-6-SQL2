@@ -15,7 +15,7 @@ SELECT
     t.contact_phone
 FROM Tournament_Teams tt
 JOIN Teams t ON tt.team_id = t.team_id
-WHERE tt.tournament_id = 2
+WHERE tt.tournament_id = 13;
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
@@ -27,13 +27,13 @@ SELECT
     p.position,
     p.is_captain
 FROM Players p
-WHERE p.team_id = 1
+WHERE p.team_id = 479;
 
 EXPLAIN (ANALYZE, BUFFERS)
-SELECT * FROM Matches WHERE tournament_id = 2;
+SELECT * FROM Matches WHERE tournament_id = 49;
 
 EXPLAIN (ANALYZE, BUFFERS)
-SELECT * FROM Matches WHERE team_home = 45 OR team_away = 45;
+SELECT * FROM Matches WHERE team_home = 479 OR team_away = 479;
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
@@ -45,7 +45,7 @@ SELECT
     me.match_id
 FROM Match_Events me
 JOIN Players p ON me.player_id = p.player_id
-WHERE match_id = 432;
+WHERE match_id = 12;
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
@@ -58,8 +58,8 @@ SELECT
 FROM Match_Events me 
 JOIN Players p ON me.player_id = p.player_id
 JOIN Matches m ON me.match_id = m.match_id
-WHERE m.tournament_id = 39 
-  AND (me.type = 'red card' OR me.type = 'yellow card');
+WHERE m.tournament_id = 18
+  AND (me.type = 'red card' OR me.type = 'yellow card'); 
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
@@ -75,7 +75,7 @@ WHERE m.tournament_id = 49
   AND me.type = 'goal' 
   AND p.role = 'forward'
 GROUP BY p.player_id, p.name, p.surname, t.name
-ORDER BY goals DESC;
+ORDER BY goals DESC; 
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 
@@ -137,7 +137,7 @@ SELECT
 	tt.final_position
 FROM Tournament_Teams tt 
 JOIN Tournaments t ON tt.tournament_id = t.tournament_id
-WHERE tt.team_id = 7;
+WHERE tt.team_id = 4;
 
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT 

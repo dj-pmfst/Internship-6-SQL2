@@ -5,6 +5,8 @@ ALTER TABLE Tournaments DISABLE TRIGGER ALL;
 ALTER TABLE Matches DISABLE TRIGGER ALL;
 ALTER TABLE Match_Events DISABLE TRIGGER ALL;
 ALTER TABLE Tournament_Teams DISABLE TRIGGER ALL;
+ALTER TABLE tournament_teams
+DROP CONSTRAINT tournament_teams_tournament_id_team_id_key;
 
 --import seed fileova
   --redoslijed:
@@ -25,6 +27,11 @@ WHERE dob >= CURRENT_DATE - INTERVAL '18 years';
 DELETE FROM Matches 
 WHERE team_home = team_away;
 
+DELETE FROM tournament_teams a
+USING tournament_teams b
+WHERE a.ctid < b.ctid
+  AND a.tournament_id = b.tournament_id
+  AND a.team_id = b.team_id;
 
 UPDATE Players 
 SET position = NULL 
@@ -100,6 +107,9 @@ ALTER TABLE Tournaments ENABLE TRIGGER ALL;
 ALTER TABLE Matches ENABLE TRIGGER ALL;
 ALTER TABLE Match_Events ENABLE TRIGGER ALL;
 ALTER TABLE Tournament_Teams ENABLE TRIGGER ALL;
+ALTER TABLE tournament_teams
+ADD CONSTRAINT tournament_teams_tournament_id_team_id_key
+UNIQUE (tournament_id, team_id);
 
 
 SELECT 'Teams' as table_name, COUNT(*) as count FROM Teams
